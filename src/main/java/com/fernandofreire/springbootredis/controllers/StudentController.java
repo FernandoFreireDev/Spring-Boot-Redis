@@ -1,13 +1,11 @@
 package com.fernandofreire.springbootredis.controllers;
 
+import com.fernandofreire.springbootredis.ResponseTransfer;
 import com.fernandofreire.springbootredis.models.Student;
 import com.fernandofreire.springbootredis.repository.StudentRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -20,27 +18,28 @@ public class StudentController {
     }
 
     @GetMapping("/add/{id}/{name}")
-    public Student add(@PathVariable("id") final String id,
-                       @PathVariable("name") final String name) {
+    public Student add(@PathVariable("id") String id,
+                       @PathVariable("name") String name) {
         studentRepository.save(new Student(id, name, 20000L));
-        return studentRepository.findById(id);
+        return studentRepository.findById(id).get();
     }
 
     @GetMapping("/update/{id}/{name}")
-    public Student update(@PathVariable("id") final String id,
-                       @PathVariable("name") final String name) {
-        studentRepository.update(new Student(id, name, 1000L));
-        return studentRepository.findById(id);
+    public Student update(@PathVariable("id") String id,
+                       @PathVariable("name") String name) {
+        studentRepository.save(new Student(id, name, 1000L));
+        return studentRepository.findById(id).get();
     }
 
     @GetMapping("/delete/{id}")
-    public Map<String, Student> delete(@PathVariable("id") final String id) {
-        studentRepository.delete(id);
-        return all();
+    @ResponseBody
+    public ResponseTransfer delete(@PathVariable("id") String id) {
+        studentRepository.deleteById(id);
+        return new ResponseTransfer("Thanks For Posting!!!");
     }
 
     @GetMapping("/all")
-    public Map<String, Student> all() {
-        return studentRepository.findAll();
+    public ArrayList<Student> all() {
+        return (ArrayList<Student>) studentRepository.findAll();
     }
 }

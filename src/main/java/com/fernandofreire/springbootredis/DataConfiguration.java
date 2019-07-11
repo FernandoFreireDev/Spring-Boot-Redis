@@ -9,31 +9,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 @Configuration
 public class DataConfiguration {
 
-//    @Bean
-//    JedisConnectionFactory jedisConnectionFactory() {
-//
-//        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-//        redisStandaloneConfiguration.setHostName("localhost");
-//        redisStandaloneConfiguration.setPort(6379);
-//        redisStandaloneConfiguration.setDatabase(0);
-//        redisStandaloneConfiguration.setPassword(RedisPassword.of("admin"));
-//
-//        JedisClientConfiguration.JedisClientConfigurationBuilder jedisClientConfiguration = JedisClientConfiguration.builder();
-//        jedisClientConfiguration.connectTimeout(Duration.ofSeconds(60));// 60s connection timeout
-//
-//        JedisConnectionFactory jedisConFactory = new JedisConnectionFactory(redisStandaloneConfiguration,
-//                jedisClientConfiguration.build());
-//
-//        return jedisConFactory;
-//    }
-//
-//    @Bean
-//    public RedisTemplate<String, Object> redisTemplate() {
-//        RedisTemplate<String, Object> template = new RedisTemplate<>();
-//        template.setConnectionFactory(jedisConnectionFactory());
-//        return template;
-//    }
-
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         return new JedisConnectionFactory();
